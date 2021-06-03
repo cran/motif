@@ -5,10 +5,14 @@
 
 <!-- badges: start -->
 
+[![CRAN
+status](http://www.r-pkg.org/badges/version/motif)](https://cran.r-project.org/package=motif)
 [![GitHub action build
 status](https://github.com/Nowosad/motif/workflows/pkgdown/badge.svg)](https://github.com/Nowosad/motif/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/Nowosad/motif/branch/master/graph/badge.svg)](https://codecov.io/gh/Nowosad/motif?branch=master)
+[![CRAN RStudio mirror
+downloads](http://cranlogs.r-pkg.org/badges/motif)](https://cran.r-project.org/package=motif)
 <!-- badges: end -->
 
 The **motif** package implements and extends ideas of the pattern-based
@@ -21,10 +25,12 @@ clustering to be performed on spatial patterns.
 
 ## Installation
 
-<!-- You can install the released version of motif from [CRAN](https://CRAN.R-project.org) with: -->
-<!-- ``` r -->
-<!-- install.packages("motif") -->
-<!-- ``` -->
+You can install the released version of motif from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("motif")
+```
 
 And the development version from [GitHub](https://github.com/) with:
 
@@ -38,15 +44,15 @@ remotes::install_github("Nowosad/motif")
 See the package’s vignettes:
 
 1.  [Introduction to the motif
-    package](https://nowosad.github.io/motif/articles/intro.html)
+    package](https://nowosad.github.io/motif/articles/v1_intro.html)
 2.  [Types of spatial patterns’
-    signatures](https://nowosad.github.io/motif/articles/articles/signatures.html)
+    signatures](https://nowosad.github.io/motif/articles/articles/v2_signatures.html)
 3.  [Spatial patterns’
-    search](https://nowosad.github.io/motif/articles/articles/search.html)
+    search](https://nowosad.github.io/motif/articles/articles/v3_search.html)
 4.  [Spatial patterns’
-    comparision](https://nowosad.github.io/motif/articles/articles/compare.html)
+    comparision](https://nowosad.github.io/motif/articles/articles/v4_compare.html)
 5.  [Spatial patterns’
-    clustering](https://nowosad.github.io/motif/articles/articles/cluster.html)
+    clustering](https://nowosad.github.io/motif/articles/articles/v5_cluster.html)
 
 ## Contribution
 

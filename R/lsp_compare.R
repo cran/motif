@@ -67,11 +67,7 @@
 #'     dist_fun = "jensen-shannon", window = ecoregions["id"])
 #' plot(c1["dist"])
 #' }
-lsp_compare = function(x, y, type, dist_fun, window = NULL, output = "stars", neighbourhood = 4, threshold = 0.5, ordered = TRUE, repeated = TRUE, normalization = "pdf", wecoma_fun = "mean", wecoma_na_action = "replace", ...) UseMethod("lsp_compare")
-
-#' @name lsp_compare
-#' @export
-lsp_compare.stars = function(x, y, type, dist_fun, window = NULL, output = "stars", neighbourhood = 4, threshold = 0.5, ordered = TRUE, repeated = TRUE, normalization = "pdf", wecoma_fun = "mean", wecoma_na_action = "replace", ...){
+lsp_compare = function(x, y, type, dist_fun, window = NULL, output = "stars", neighbourhood = 4, threshold = 0.5, ordered = TRUE, repeated = TRUE, normalization = "pdf", wecoma_fun = "mean", wecoma_na_action = "replace", ...){
   if (inherits(x, "SpatRaster")){
     x = stars::st_as_stars(x)
   }
@@ -129,11 +125,16 @@ lsp_compare.stars = function(x, y, type, dist_fun, window = NULL, output = "star
   #                    by = "id")
   # unify signatures
   # attributes(output_x)
+  if (nrow(output_all) == 0){
+    stop("Cannot calculate signatures. Have you tried using a smaller `window` or a larger `threshold` value?",
+         call. = FALSE)
+  }
 
   unit = "log2"
 
   output_all$dist = mapply(
-    distance2,
+    # distance2,
+    philentropy::dist_one_one,
     output_x$signature,
     output_y$signature,
     method = dist_fun,
@@ -152,7 +153,10 @@ lsp_compare.stars = function(x, y, type, dist_fun, window = NULL, output = "star
     if (output == "stars"){
       return(output_stars)
     } else {
-      return(st_as_terra2(output_stars))
+      output_names = names(output_stars)
+      output_stars = terra::rast(output_stars)
+      names(output_stars) = output_names
+      return(output_stars)
     }
   } else if (output == "sf"){
     #return sf

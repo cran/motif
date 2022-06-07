@@ -6,20 +6,14 @@
 \alias{motif-package}
 \title{motif: Local Pattern Analysis}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Describes spatial patterns of categorical raster data for 
-    any defined regular and irregular areas. 
-    Patterns are described quantitatively using built-in signatures 
-    based on co-occurrence matrices but also allows for 
-    any user-defined functions. 
-    It enables spatial analysis such as search, change detection,
-    and clustering to be performed on spatial patterns (Nowosad (2021) <doi:10.1007/s10980-020-01135-0>).
+Describes spatial patterns of categorical raster data for any defined regular and irregular areas. Patterns are described quantitatively using built-in signatures based on co-occurrence matrices but also allows for any user-defined functions. It enables spatial analysis such as search, change detection, and clustering to be performed on spatial patterns (Nowosad (2021) \doi{10.1007/s10980-020-01135-0}).
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://nowosad.github.io/motif/}
+  \item \url{https://jakubnowosad.com/motif/}
   \item Report bugs at \url{https://github.com/Nowosad/motif/issues}
 }
 

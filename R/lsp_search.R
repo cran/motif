@@ -90,13 +90,7 @@
 #'   dist_fun = "jensen-shannon", threshold = 0.5, window = ecoregions["id"])
 #' plot(s2["dist"])
 #' }
-lsp_search = function(x, y, type, dist_fun, window = NULL, output = "stars", neighbourhood = 4, threshold = 0.5, ordered = TRUE, repeated = TRUE, normalization = "pdf", wecoma_fun = "mean", wecoma_na_action = "replace", classes = NULL, ...) UseMethod("lsp_search")
-
-
-#'
-#' @name lsp_search
-#' @export
-lsp_search.stars = function(x, y, type, dist_fun, window = NULL, output = "stars", neighbourhood = 4, threshold = 0.5, ordered = TRUE, repeated = TRUE, normalization = "pdf", wecoma_fun = "mean", wecoma_na_action = "replace", classes = NULL, ...){
+lsp_search = function(x, y, type, dist_fun, window = NULL, output = "stars", neighbourhood = 4, threshold = 0.5, ordered = TRUE, repeated = TRUE, normalization = "pdf", wecoma_fun = "mean", wecoma_na_action = "replace", classes = NULL, ...){
   if (inherits(x, "SpatRaster")){
     x = stars::st_as_stars(x)
   }
@@ -157,7 +151,8 @@ lsp_search.stars = function(x, y, type, dist_fun, window = NULL, output = "stars
   unit = "log2"
   output_y$dist = unlist(lapply(
     output_y$signature,
-    distance2,
+    # distance2,
+    philentropy::dist_one_one,
     P = output_x$signature[[1]],
     method = dist_fun,
     unit = unit,
@@ -182,7 +177,10 @@ lsp_search.stars = function(x, y, type, dist_fun, window = NULL, output = "stars
     if (output == "stars"){
       return(output_stars)
     } else {
-      return(st_as_terra2(output_stars))
+      output_names = names(output_stars)
+      output_stars = terra::rast(output_stars)
+      names(output_stars) = output_names
+      return(output_stars)
     }
 
   } else if (output == "sf"){

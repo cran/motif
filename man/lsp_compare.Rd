@@ -13,8 +13,8 @@ lsp_compare(
   output = "stars",
   neighbourhood = 4,
   threshold = 0.5,
-  ordered = TRUE,
-  repeated = TRUE,
+  ordered = FALSE,
+  repeated = FALSE,
   normalization = "pdf",
   wecoma_fun = "mean",
   wecoma_na_action = "replace",
@@ -32,7 +32,7 @@ lsp_compare(
 
 \item{window}{Specifies areas for analysis. It can be either: \code{NULL}, a numeric value, or an \code{sf} object. If \code{window=NULL} calculations are performed for a whole area. If the \code{window} argument is numeric, it is a length of the side of a square-shaped block of cells. Expressed in the numbers of cells, it defines the extent of a local pattern. If an \code{sf} object is provided, each feature (row) defines the extent of a local pattern. The \code{sf} object should have one attribute (otherwise, the first attribute is used as an id).}
 
-\item{output}{The class of the output. Either \code{"stars"}, \code{"sf"}, or \code{terra}}
+\item{output}{The class of the output. Either \code{"stars"}, \code{"sf"}, or \code{"terra"}}
 
 \item{neighbourhood}{The number of directions in which cell adjacencies are considered as neighbours:
 4 (rook's case) or 8 (queen's case). The default is 4.}
@@ -41,11 +41,11 @@ lsp_compare(
 
 \item{ordered}{For \code{"cove"}, \code{"cocove"}, \code{"wecove"} and \code{"incove"} only. The type of pairs considered.
 Either "ordered" (TRUE) or "unordered" (FALSE).
-The default is TRUE.}
+The default is FALSE.}
 
 \item{repeated}{For \code{"incove"} only. Should the repeated co-located co-occurrence matrices be used?
 Either "ordered" (TRUE) or "unordered" (FALSE).
-The default is TRUE.}
+The default is FALSE.}
 
 \item{normalization}{For \code{"cove"}, \code{"cocove"}, \code{"wecove"}, \code{"incove"}, \code{"composition"}, or user-provided functions only.
 Should the output vector be normalized?

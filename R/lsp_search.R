@@ -11,16 +11,16 @@
 #' @param type Type of the calculated signature. It can be `"coma"` (co-occurrence matrix), `"cove"` (co-occurrence vector), `"cocoma"` (co-located co-occurrence matrix), `"cocove"` (co-located co-occurrence vector), `"wecoma"` (weighted co-occurrence matrix), `"wecove"` (weighted co-occurrence vector), `"incoma"` (integrated co-occurrence matrix), `"incove"` (integrated co-occurrence vector), `"composition"` or any function that can summarize `stars` objects.
 #' @param dist_fun Distance measure used. This function uses the `philentropy::distance` function in the background. Run `philentropy::getDistMethods()` to find possible distance measures.
 #' @param window Specifies areas for analysis. It can be either: `NULL`, a numeric value, or an `sf` object. If `window=NULL` calculations are performed for a whole area. If the `window` argument is numeric, it is a length of the side of a square-shaped block of cells. Expressed in the numbers of cells, it defines the extent of a local pattern. If an `sf` object is provided, each feature (row) defines the extent of a local pattern. The `sf` object should have one attribute (otherwise, the first attribute is used as an id).
-#' @param output The class of the output. Either `"stars"`, `"sf"`, or `terra`
+#' @param output The class of the output. Either `"stars"`, `"sf"`, or `"terra"`
 #' @param neighbourhood The number of directions in which cell adjacencies are considered as neighbours:
 #' 4 (rook's case) or 8 (queen's case). The default is 4.
 #' @param threshold The share of NA cells to allow metrics calculation.
 #' @param ordered For `"cove"`, `"cocove"`, `"wecove"` and `"incove"` only. The type of pairs considered.
 #' Either "ordered" (TRUE) or "unordered" (FALSE).
-#' The default is TRUE.
+#' The default is FALSE.
 #' @param repeated For `"incove"` only. Should the repeated co-located co-occurrence matrices be used?
 #' Either "ordered" (TRUE) or "unordered" (FALSE).
-#' The default is TRUE.
+#' The default is FALSE.
 #' @param normalization For `"cove"`, `"cocove"`, `"wecove"`, `"incove"`, `"composition"`, or user-provided functions only.
 #' Should the output vector be normalized?
 #' Either "none" or "pdf".
@@ -90,7 +90,7 @@
 #'   dist_fun = "jensen-shannon", threshold = 0.5, window = ecoregions["id"])
 #' plot(s2["dist"])
 #' }
-lsp_search = function(x, y, type, dist_fun, window = NULL, output = "stars", neighbourhood = 4, threshold = 0.5, ordered = TRUE, repeated = TRUE, normalization = "pdf", wecoma_fun = "mean", wecoma_na_action = "replace", classes = NULL, ...){
+lsp_search = function(x, y, type, dist_fun, window = NULL, output = "stars", neighbourhood = 4, threshold = 0.5, ordered = FALSE, repeated = FALSE, normalization = "pdf", wecoma_fun = "mean", wecoma_na_action = "replace", classes = NULL, ...){
   if (inherits(x, "SpatRaster")){
     x = stars::st_as_stars(x)
   }
@@ -159,7 +159,7 @@ lsp_search = function(x, y, type, dist_fun, window = NULL, output = "stars", nei
     ...
   ))
 
-  message("Metric: '", dist_fun, "' using unit: '", unit, "'.")
+  # message("Metric: '", dist_fun, "' using unit: '", unit, "'.")
 
   # prepare result ----------------------------------------------------------
   if (output == "stars" || output == "terra"){

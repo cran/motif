@@ -10,8 +10,8 @@ lsp_signature(
   window = NULL,
   neighbourhood = 4,
   threshold = 0.9,
-  ordered = TRUE,
-  repeated = TRUE,
+  ordered = FALSE,
+  repeated = FALSE,
   normalization = "pdf",
   wecoma_fun = "mean",
   wecoma_na_action = "replace",
@@ -32,11 +32,11 @@ lsp_signature(
 
 \item{ordered}{For \code{"cove"}, \code{"cocove"}, \code{"wecove"} and \code{"incove"} only. The type of pairs considered.
 Either "ordered" (TRUE) or "unordered" (FALSE).
-The default is TRUE.}
+The default is FALSE.}
 
 \item{repeated}{For \code{"incove"} only. Should the repeated co-located co-occurrence matrices be used?
 Either "ordered" (TRUE) or "unordered" (FALSE).
-The default is TRUE.}
+The default is FALSE.}
 
 \item{normalization}{For \code{"cove"}, \code{"cocove"}, \code{"wecove"}, \code{"incove"}, \code{"composition"}, or user-provided functions only. Should the output vector be normalized?
 Either "none" or "pdf".

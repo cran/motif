@@ -20,6 +20,7 @@ c_cocove = lsp_compare(
   c(landcover, landform),
   c(landcoverold, landform),
   type = "cocove",
+  ordered = TRUE,
   dist_fun = "jensen-shannon",
   threshold = 0.9
 )
@@ -56,7 +57,7 @@ test_that("tests compare composition results", {
 })
 
 test_that("tests compare cocove results", {
-  expect_equal(c_cocove$dist[[1]], 0.00057, tolerance = .001)
+  expect_equal(c_cocove$dist[[1]], 0.00015, tolerance = .001)
 })
 
 test_that("tests compare wecove results", {

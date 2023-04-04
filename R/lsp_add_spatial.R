@@ -49,10 +49,15 @@ lsp_add_stars = function(x = NULL, window = NULL) UseMethod("lsp_add_stars")
 #' @export
 lsp_add_stars.default = function(x = NULL, window = NULL){
 
-  if (is.numeric(window) && window != 0){
-    x_nrow = nrow(x)
-    x_ncol = ncol(x)
+  if (length(window) == 2){
+    window_shift = window[2]
+    window = window[1]
+  } else if (length(window) == 1){
+    window = window[1]
+    window_shift = window[1]
+  }
 
+  if (is.numeric(window) && window != 0){
     x_crs = sf::st_crs(x)
     x_bb = sf::st_bbox(x)
     x_delta_row = stars::st_dimensions(x)[[1]][["delta"]]
@@ -62,7 +67,7 @@ lsp_add_stars.default = function(x = NULL, window = NULL){
                              x_bb = x_bb,
                              x_delta_row = x_delta_row,
                              x_delta_col = x_delta_col,
-                             window_shift = window)
+                             window_shift = window_shift)
     return(output)
 
   } else if (is.null(window)){
@@ -108,7 +113,7 @@ lsp_add_stars.lsp = function(x = NULL, window = NULL){
                                                                dx = metadata$delta_y,
                                                                dy = metadata$delta_x))
   }
-
+  x = lsp_restructure(x)
   output_stars = join_stars(output_stars, x, by = "id")
 
   return(output_stars)
@@ -141,8 +146,8 @@ lsp_create_grid = function(x_crs, x_bb, x_delta_row, x_delta_col, window_shift){
   cellshift = c(window_shift * x_delta_row,
                 window_shift * x_delta_col)
 
-  output_n_row = ceiling(abs((x_bb["xmax"] - x_bb["xmin"]) / cellshift[1]))
-  output_n_col = ceiling(abs((x_bb["ymin"] - x_bb["ymax"]) / cellshift[1]))
+  output_n_row = ceiling2(abs((x_bb["xmax"] - x_bb["xmin"]) / cellshift[1]))
+  output_n_col = ceiling2(abs((x_bb["ymin"] - x_bb["ymax"]) / cellshift[2]))
 
   new_xmax = x_bb["xmin"] + (output_n_row * cellshift[1])
   new_ymin = x_bb["ymax"] + (output_n_col * cellshift[2])
@@ -255,13 +260,18 @@ lsp_add_sf = function(x = NULL, window = NULL) UseMethod("lsp_add_sf")
 #' @export
 lsp_add_sf.default = function(x = NULL, window = NULL){
 
+  if (length(window) == 2){
+    window_shift = window[2]
+    window = window[1]
+  } else if (length(window) == 1){
+    window = window[1]
+    window_shift = window[1]
+  }
+
   if (is.numeric(window) && window != 0){
     if (inherits(x, "SpatRaster")){
       x = stars::st_as_stars(x)
     }
-    x_nrow = nrow(x)
-    x_ncol = ncol(x)
-
     x_crs = sf::st_crs(x)
     x_bb = sf::st_bbox(x)
     x_delta_row = stars::st_dimensions(x)[[1]][["delta"]]
@@ -271,7 +281,7 @@ lsp_add_sf.default = function(x = NULL, window = NULL){
                              x_bb = x_bb,
                              x_delta_row = x_delta_row,
                              x_delta_col = x_delta_col,
-                             window_shift = window)
+                             window_shift = window_shift)
 
     output = sf::st_as_sf(output)
     return(output)

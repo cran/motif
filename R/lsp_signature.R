@@ -10,10 +10,10 @@
 #' @param threshold The share of NA cells (0-1) to allow metrics calculation.
 #' @param ordered For `"cove"`, `"cocove"`, `"wecove"` and `"incove"` only. The type of pairs considered.
 #' Either "ordered" (TRUE) or "unordered" (FALSE).
-#' The default is TRUE.
+#' The default is FALSE.
 #' @param repeated For `"incove"` only. Should the repeated co-located co-occurrence matrices be used?
 #' Either "ordered" (TRUE) or "unordered" (FALSE).
-#' The default is TRUE.
+#' The default is FALSE.
 #' @param normalization For `"cove"`, `"cocove"`, `"wecove"`, `"incove"`, `"composition"`, or user-provided functions only. Should the output vector be normalized?
 #' Either "none" or "pdf".
 #' The "pdf" option normalizes a vector to sum to one.
@@ -52,7 +52,7 @@
 #' landcover_comp = lsp_signature(landcover, type = "composition", threshold = 0.9)
 #' landcover_comp
 #' }
-lsp_signature = function(x, type, window = NULL, neighbourhood = 4, threshold = 0.9, ordered = TRUE, repeated = TRUE, normalization = "pdf", wecoma_fun = "mean", wecoma_na_action = "replace", classes = NULL){
+lsp_signature = function(x, type, window = NULL, neighbourhood = 4, threshold = 0.9, ordered = FALSE, repeated = FALSE, normalization = "pdf", wecoma_fun = "mean", wecoma_na_action = "replace", classes = NULL){
   if (inherits(x, "SpatRaster")){
     x = stars::st_as_stars(x)
   }
